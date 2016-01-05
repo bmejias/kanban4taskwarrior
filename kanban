@@ -1,0 +1,66 @@
+#! /usr/bin/env python3
+
+import sys
+
+
+def add_to_ready():
+    return
+
+
+def add_to_wip():
+    return
+
+
+def add_to_done():
+    return
+
+
+def block():
+    return
+
+
+def list_backlog():
+    return
+
+
+def list_blocked():
+    return
+
+
+def list_ready():
+    return
+
+
+def list_done():
+    return
+
+
+def open_sprint():
+    return
+
+
+def close_sprint():
+    return
+
+
+def main():
+    commands = {
+        'add': add_to_ready,
+        'start': add_to_wip,
+        'done': add_to_done,
+        'block': block,
+        'backlog': list_backlog,
+        'ready': list_ready,
+        'blocked': list_blocked,
+        'completed': list_done,
+        'open': open_sprint,
+        'close': close_sprint
+    }
+    command = None if len(sys.argv) < 2 else str(sys.argv[1])
+    if command in commands.keys():
+        commands[command]()
+    print(sys.argv[0])
+
+
+if __name__ == '__main__':
+        main()
