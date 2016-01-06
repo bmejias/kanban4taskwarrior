@@ -1,5 +1,7 @@
 Usage make [target]
 Targets:
+    test    run all tests
+
     help    this help message
 
 A wiser fellow than myself once said:
