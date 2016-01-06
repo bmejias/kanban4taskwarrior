@@ -4,43 +4,43 @@ import sys
 
 
 def add_to_ready():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def add_to_wip():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def add_to_done():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def block():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def list_backlog():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def list_blocked():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def list_ready():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def list_done():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def open_sprint():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def close_sprint():
-    print("Not Implemented Yet!")
+    print("Not Yet Implemented!")
 
 
 def main():
