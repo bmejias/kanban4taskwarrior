@@ -4,43 +4,43 @@ import sys
 
 
 def add_to_ready():
-    return
+    print("Not Implemented Yet!")
 
 
 def add_to_wip():
-    return
+    print("Not Implemented Yet!")
 
 
 def add_to_done():
-    return
+    print("Not Implemented Yet!")
 
 
 def block():
-    return
+    print("Not Implemented Yet!")
 
 
 def list_backlog():
-    return
+    print("Not Implemented Yet!")
 
 
 def list_blocked():
-    return
+    print("Not Implemented Yet!")
 
 
 def list_ready():
-    return
+    print("Not Implemented Yet!")
 
 
 def list_done():
-    return
+    print("Not Implemented Yet!")
 
 
 def open_sprint():
-    return
+    print("Not Implemented Yet!")
 
 
 def close_sprint():
-    return
+    print("Not Implemented Yet!")
 
 
 def main():
@@ -59,7 +59,6 @@ def main():
     command = None if len(sys.argv) < 2 else str(sys.argv[1])
     if command in commands.keys():
         commands[command]()
-    print(sys.argv[0])
 
 
 if __name__ == '__main__':
