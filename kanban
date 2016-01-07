@@ -1,6 +1,11 @@
 #! /usr/bin/env python3
 
+import os
+import string
 import sys
+from random import SystemRandom as generator
+
+SPRINT_UUID_FILE = '.sprint_key'
 
 
 def add_to_ready():
@@ -36,7 +41,15 @@ def list_done():
 
 
 def open_sprint():
-    print("Not Yet Implemented!")
+    if os.path.isfile(SPRINT_UUID_FILE):
+        print("ERROR: Sprint already open!")
+        sys.exit(1)
+    else:
+        sprint = open(SPRINT_UUID_FILE, 'w')
+        key = ''.join(generator().choice(string.ascii_letters) for _ in range(8))
+        sprint.write(key)
+        sprint.close()
+        print("Sprint started: %s" % key)
 
 
 def close_sprint():
