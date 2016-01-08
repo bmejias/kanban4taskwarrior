@@ -5,23 +5,54 @@ import string
 import sys
 from random import SystemRandom as generator
 
-SPRINT_UUID_FILE = '.sprint_key'
+SPRINT_KEY_FILE = '.sprint_key'
 
 
-def add_to_ready():
+######################################################################
+# Global actions to open and close sprints
+######################################################################
+
+
+def open_sprint(__args__):
+    if os.path.isfile(SPRINT_KEY_FILE):
+        print("ERROR: Sprint already open!")
+        sys.exit(1)
+    else:
+        sprint = open(SPRINT_KEY_FILE, 'w')
+        key = ''.join(generator().choice(string.ascii_letters) for _ in range(8))
+        sprint.write(key)
+        sprint.close()
+        print("Sprint started: %s" % key)
+
+
+def close_sprint(force):
     print("Not Yet Implemented!")
 
 
-def add_to_wip():
+######################################################################
+# Actions perfomed on task ids
+######################################################################
+
+
+def add_to_ready(taskid):
     print("Not Yet Implemented!")
 
 
-def add_to_done():
+def add_to_wip(taskid):
     print("Not Yet Implemented!")
 
 
-def block():
+def add_to_done(taskid):
     print("Not Yet Implemented!")
+
+
+def block(taskid):
+    print("Not Yet Implemented!")
+
+
+######################################################################
+# Reporting actions
+######################################################################
 
 
 def list_backlog():
@@ -40,38 +71,35 @@ def list_done():
     print("Not Yet Implemented!")
 
 
-def open_sprint():
-    if os.path.isfile(SPRINT_UUID_FILE):
-        print("ERROR: Sprint already open!")
-        sys.exit(1)
-    else:
-        sprint = open(SPRINT_UUID_FILE, 'w')
-        key = ''.join(generator().choice(string.ascii_letters) for _ in range(8))
-        sprint.write(key)
-        sprint.close()
-        print("Sprint started: %s" % key)
-
-
-def close_sprint():
-    print("Not Yet Implemented!")
+######################################################################
+# Main procedure
+######################################################################
 
 
 def main():
-    commands = {
-        'add': add_to_ready,
-        'start': add_to_wip,
-        'done': add_to_done,
-        'block': block,
-        'backlog': list_backlog,
-        'ready': list_ready,
-        'blocked': list_blocked,
-        'completed': list_done,
+    sprint_actions = {
         'open': open_sprint,
         'close': close_sprint
     }
+    reports = {
+        'backlog': list_backlog,
+        'ready': list_ready,
+        'blocked': list_blocked,
+        'completed': list_done
+    }
+    actions = {
+        'add': add_to_ready,
+        'start': add_to_wip,
+        'done': add_to_done,
+        'block': block
+    }
     command = None if len(sys.argv) < 2 else str(sys.argv[1])
-    if command in commands.keys():
-        commands[command]()
+    if command in reports.keys():
+        reports[command]()
+    elif command in actions.keys():
+        actions[command](sys.argv)
+    elif command in sprint_actions.keys():
+        sprint_actions[command](sys.argv)
 
 
 if __name__ == '__main__':
