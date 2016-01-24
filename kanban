@@ -9,7 +9,7 @@ import sys
 
 TASK = '/usr/bin/task'
 SPRINT_KEY_FILE = '.sprint_key'
-
+KANBAN = 'kanban'
 
 ######################################################################
 # Global actions to open and close sprints
@@ -32,20 +32,24 @@ def close_sprint(force):
     if os.path.isfile(SPRINT_KEY_FILE):
         sprint = open(SPRINT_KEY_FILE, 'r')
         key = sprint.read()
-        print("There is a sprint with key: %s" % key)
-        out, err = Popen("%s +%s -done" % (TASK, 'foo'),
+        sprint.close()
+        # print("There is a sprint with key: %s" % key)
+        # out, err = Popen("%s +%s -done count" % (TASK, 'foo'),
+        out, err = Popen("%s +%s -done count" % (TASK, key),
                          stdout=PIPE, stderr=PIPE, shell=True).communicate()
-        tags = out.decode().strip()
-        print("OUT " + tags)
-        print("ERR " + err.decode())
-        tags = 0 if tags == '' else tags.split(' ')[-1]
-        if tags is 0:
-            print("No tasks")
+        open_tasks = int(out.decode().strip())
+        if open_tasks is 0:
+            print("Completing tasks...")
+            os.system("%s +%s +done done" % (TASK, key))
+            print("Removing sprint key")
+            os.remove(SPRINT_KEY_FILE)
         else:
-            print("What!?")
-        print(tags)
+            print("WARN: There are still %s tasks to be done.\n" % open_tasks)
+            print("Use:\n\t%s close force\n\nto force sprint close" % KANBAN)
+            sys.exit(101)
     else:
-        print("Sprint has not started yet!")
+        print("ERR: Sprint has not started yet!")
+        sys.exit(2)
 
 
 ######################################################################
