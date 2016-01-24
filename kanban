@@ -12,14 +12,19 @@ SPRINT_KEY_FILE = '.sprint_key'
 KANBAN = 'kanban'
 
 
-def read_key():
+def get_key(must_exist=False):
     if os.path.isfile(SPRINT_KEY_FILE):
         sprint = open(SPRINT_KEY_FILE, 'r')
         key = sprint.read()
         sprint.close()
         return key
     else:
-        return None
+        if must_exist:
+            print("ERR: Sprint has not started yet!")
+            sys.exit(2)
+        else:
+            return None
+
 
 ######################################################################
 # Global actions to open and close sprints
@@ -68,12 +73,8 @@ def close_sprint(force):
 
 
 def add_to_ready(taskid):
-    key = read_key()
-    if key is not None:
-        os.system("%s %s mod +%s +ready" % (TASK, taskid, key))
-    else:
-        print("ERR: Sprint has not started yet!")
-        sys.exit(2)
+    key = get_key(True)
+    os.system("%s %s mod +%s +ready" % (TASK, taskid, key))
 
 
 def add_to_wip(taskid):
