@@ -103,7 +103,8 @@ def list_blocked():
 
 
 def list_ready():
-    print("Not Yet Implemented!")
+    key = get_key(True)
+    os.system("%s +%s +ready" % (TASK, key))
 
 
 def list_done():
