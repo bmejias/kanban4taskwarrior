@@ -49,13 +49,10 @@ def close_sprint(force):
         key = sprint.read()
         sprint.close()
         # print("There is a sprint with key: %s" % key)
-        # out, err = Popen("%s +%s -done count" % (TASK, 'foo'),
-        out, err = Popen("%s +%s -done count" % (TASK, key),
+        out, err = Popen("%s +%s count" % (TASK, key),
                          stdout=PIPE, stderr=PIPE, shell=True).communicate()
         open_tasks = int(out.decode().strip())
         if open_tasks is 0:
-            print("Completing tasks...")
-            os.system("%s +%s +done done" % (TASK, key))
             print("Removing sprint key")
             os.remove(SPRINT_KEY_FILE)
         else:
@@ -82,7 +79,8 @@ def add_to_wip(taskid):
 
 
 def add_to_done(taskid):
-    os.system("%s %s mod -wip +done" % (TASK, taskid))
+    os.system("%s %s mod -wip" % (TASK, taskid))
+    os.system("%s %s done" % (TASK, taskid))
 
 
 def block(taskid):
@@ -121,7 +119,8 @@ def list_wip():
 
 
 def list_done():
-    list_with_tag('done')
+    key = get_key(True)
+    os.system("%s completed +%s" % (TASK, key))
 
 
 ######################################################################
