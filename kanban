@@ -36,6 +36,12 @@ def get_key(must_exist=False):
             return None
 
 
+def print_header(header):
+    print("#" * 70)
+    print("\t\t\t%s" % header)
+    print("#" * 70)
+
+
 ######################################################################
 # Global actions to open and close sprints
 ######################################################################
@@ -76,6 +82,11 @@ def close_sprint(force):
 def add_to_ready(taskid):
     key = get_key(True)
     os.system("%s %s mod +%s +ready" % (TASK, taskid, key))
+
+
+def add_to_today(taskid):
+    # Extra column for TOS kanban
+    os.system("%s %s mod -ready +today" % (TASK, taskid))
 
 
 def add_to_wip(taskid):
@@ -124,13 +135,24 @@ def list_wip():
 
 def list_done():
     key = get_key(True)
-    os.system("%s completed +%s" % (TASK, key))
+    os.system("%s +%s completed" % (TASK, key))
 
 
 def burndown():
     key = get_key(True)
     os.system("%s +%s burndown.daily" % (TASK, key))
 
+
+def list_all():
+    key = get_key(True)
+    print_header('Ready')
+    os.system("%s +%s +ready" % (TASK, key))
+    print_header('Today')
+    os.system("%s +%s +today" % (TASK, key))
+    print_header('WIP')
+    os.system("%s +%s active" % (TASK, key))
+    print_header('Done')
+    os.system("%s +%s completed" % (TASK, key))
 
 ######################################################################
 # Main procedure
@@ -148,13 +170,15 @@ def main():
         'blocked': list_blocked,
         'completed': list_done,
         'wip': list_wip,
-        'burndown': burndown
+        'burndown': burndown,
+        'view': list_all
     }
     actions = {
         'add': add_to_ready,
         'start': add_to_wip,
         'done': add_to_done,
-        'block': block
+        'block': block,
+        'today': add_to_today
     }
     command = None if len(sys.argv) < 2 else str(sys.argv[1])
     if command in reports.keys():
