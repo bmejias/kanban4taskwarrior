@@ -75,11 +75,10 @@ def add_to_ready(taskid):
 
 
 def add_to_wip(taskid):
-    os.system("%s %s mod -ready +wip" % (TASK, taskid))
+    os.system("%s %s start -ready" % (TASK, taskid))
 
 
 def add_to_done(taskid):
-    os.system("%s %s mod -wip" % (TASK, taskid))
     os.system("%s %s done" % (TASK, taskid))
 
 
@@ -115,7 +114,8 @@ def list_ready():
 
 
 def list_wip():
-    list_with_tag('wip')
+    key = get_key(True)
+    os.system("%s +%s active" % (TASK, key))
 
 
 def list_done():
