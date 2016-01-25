@@ -103,17 +103,25 @@ def list_backlog():
         os.system("%s -%s" % (TASK, key))
 
 
+def list_with_tag(tag):
+    key = get_key(True)
+    os.system("%s +%s +%s" % (TASK, key, tag))
+
+
 def list_blocked():
-    print("Not Yet Implemented!")
+    list_with_tag('BLOCKED')
 
 
 def list_ready():
-    key = get_key(True)
-    os.system("%s +%s +ready" % (TASK, key))
+    list_with_tag('ready')
+
+
+def list_wip():
+    list_with_tag('wip')
 
 
 def list_done():
-    print("Not Yet Implemented!")
+    list_with_tag('done')
 
 
 ######################################################################
@@ -130,7 +138,8 @@ def main():
         'backlog': list_backlog,
         'ready': list_ready,
         'blocked': list_blocked,
-        'completed': list_done
+        'completed': list_done,
+        'wip': list_wip
     }
     actions = {
         'add': add_to_ready,
