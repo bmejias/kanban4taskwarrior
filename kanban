@@ -36,10 +36,11 @@ def get_key(must_exist=False):
             return None
 
 
-def print_header(header):
-    print("#" * 70)
-    print("\t\t\t%s" % header)
-    print("#" * 70)
+def print_header(title):
+    start = 24
+    end = 70 - start - len(title)
+    header = ' ' * start + title + ' ' * end
+    print("\033[7m%s\033[7m\033[0m\n" % header)
 
 
 ######################################################################
