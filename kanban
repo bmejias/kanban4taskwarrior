@@ -95,7 +95,12 @@ def block(taskid):
 
 
 def list_backlog():
-    print("Not Yet Implemented!")
+    key = get_key(False)
+    if key is None:
+        print("WARN: There is no sprint open yet")
+        os.system("%s next" % TASK)
+    else:
+        os.system("%s -%s" % (TASK, key))
 
 
 def list_blocked():
