@@ -78,11 +78,11 @@ def add_to_ready(taskid):
 
 
 def add_to_wip(taskid):
-    print("Not Yet Implemented!")
+    os.system("%s %s mod -ready +wip" % (TASK, taskid))
 
 
 def add_to_done(taskid):
-    print("Not Yet Implemented!")
+    os.system("%s %s mod -wip +done" % (TASK, taskid))
 
 
 def block(taskid):
