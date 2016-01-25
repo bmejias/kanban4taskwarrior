@@ -123,6 +123,11 @@ def list_done():
     os.system("%s completed +%s" % (TASK, key))
 
 
+def burndown():
+    key = get_key(True)
+    os.system("%s +%s burndown.daily" % (TASK, key))
+
+
 ######################################################################
 # Main procedure
 ######################################################################
@@ -138,7 +143,8 @@ def main():
         'ready': list_ready,
         'blocked': list_blocked,
         'completed': list_done,
-        'wip': list_wip
+        'wip': list_wip,
+        'burndown': burndown
     }
     actions = {
         'add': add_to_ready,
