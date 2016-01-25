@@ -8,13 +8,23 @@ import string
 import sys
 
 TASK = '/usr/bin/task'
-SPRINT_KEY_FILE = '.sprint_key'
+SPRINT_KEY_FILE = 'sprint_key'
 KANBAN = 'kanban'
 
 
+def get_sprint_key_filename():
+    taskrc = open('%s/.taskrc' % os.environ['HOME'])
+    for line in taskrc:
+        if line.find('data.location=') is 0:
+            data_location = line.split('=')[1].strip()
+    taskrc.close()
+    return '%s/%s' % (data_location, SPRINT_KEY_FILE)
+
+
 def get_key(must_exist=False):
-    if os.path.isfile(SPRINT_KEY_FILE):
-        sprint = open(SPRINT_KEY_FILE, 'r')
+    sprint_key_file = get_sprint_key_filename()
+    if os.path.isfile(sprint_key_file):
+        sprint = open(sprint_key_file, 'r')
         key = sprint.read()
         sprint.close()
         return key
@@ -32,11 +42,12 @@ def get_key(must_exist=False):
 
 
 def open_sprint(__args__):
-    if os.path.isfile(SPRINT_KEY_FILE):
+    sprint_key_file = get_sprint_key_filename()
+    if os.path.isfile(sprint_key_file):
         print("ERROR: Sprint already open!")
         sys.exit(1)
     else:
-        sprint = open(SPRINT_KEY_FILE, 'w')
+        sprint = open(sprint_key_file, 'w')
         key = ''.join(generator().choice(string.ascii_letters) for _ in range(8))
         sprint.write(key)
         sprint.close()
@@ -44,24 +55,17 @@ def open_sprint(__args__):
 
 
 def close_sprint(force):
-    if os.path.isfile(SPRINT_KEY_FILE):
-        sprint = open(SPRINT_KEY_FILE, 'r')
-        key = sprint.read()
-        sprint.close()
-        # print("There is a sprint with key: %s" % key)
-        out, err = Popen("%s +%s count" % (TASK, key),
-                         stdout=PIPE, stderr=PIPE, shell=True).communicate()
-        open_tasks = int(out.decode().strip())
-        if open_tasks is 0:
-            print("Removing sprint key")
-            os.remove(SPRINT_KEY_FILE)
-        else:
-            print("WARN: There are still %s tasks to be done.\n" % open_tasks)
-            print("Use:\n\t%s close force\n\nto force sprint close" % KANBAN)
-            sys.exit(101)
+    key = get_key(True)
+    out, err = Popen("%s +%s count" % (TASK, key),
+                     stdout=PIPE, stderr=PIPE, shell=True).communicate()
+    open_tasks = int(out.decode().strip())
+    if open_tasks is 0:
+        print("Removing sprint key")
+        os.remove(get_sprint_key_filename())
     else:
-        print("ERR: Sprint has not started yet!")
-        sys.exit(2)
+        print("WARN: There are still %s tasks to be done.\n" % open_tasks)
+        print("Use:\n\t%s close force\n\nto force sprint close" % KANBAN)
+        sys.exit(101)
 
 
 ######################################################################
