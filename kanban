@@ -98,8 +98,11 @@ def add_to_done(taskid):
 
 
 def block(taskid):
-    print("Not Yet Implemented!")
+    os.system("%s %s mod +BLOCKED" (TASK, taskid))
 
+
+def unblock(taskid):
+    os.system("%s %s mod -BLOCKED" (TASK, taskid))
 
 ######################################################################
 # Reporting actions
@@ -175,10 +178,11 @@ def main():
     }
     actions = {
         'add': add_to_ready,
+        'today': add_to_today,
         'start': add_to_wip,
         'done': add_to_done,
         'block': block,
-        'today': add_to_today
+        'unblock': unblock
     }
     command = None if len(sys.argv) < 2 else str(sys.argv[1])
     if command in reports.keys():
