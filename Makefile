@@ -4,6 +4,6 @@ help:
 	@cat .make_help	
 
 test:
-	@./test.py
+	@test/test.py
 
 .PHONY: help test
