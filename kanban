@@ -132,6 +132,10 @@ def list_ready():
     list_with_tag('ready')
 
 
+def list_today():
+    list_with_tag('today')
+
+
 def list_wip():
     key = get_key(True)
     os.system("%s +%s active" % (TASK, key))
@@ -174,6 +178,7 @@ def main():
         'blocked': list_blocked,
         'completed': list_done,
         'wip': list_wip,
+        'today': list_today,
         'burndown': burndown,
         'view': list_all
     }
