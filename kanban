@@ -44,9 +44,11 @@ def print_header(title):
 
 
 def help(exit_status=0):
+    script_fullpath = os.path.realpath(__file__)
+    script_dir = script_fullpath[:script_fullpath.rfind('/') + 1]
     if exit_status is not 0:
         print("ERROR: Wrong Invocation")
-    help_text = open('.help_text')
+    help_text = open('%s/.help_text' % script_dir)
     for l in help_text:
         print(l)
     sys.exit(0)
