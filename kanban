@@ -43,6 +43,15 @@ def print_header(title):
     print("\033[7m%s\033[7m\033[0m\n" % header)
 
 
+def help(exit_status=0):
+    if exit_status is not 0:
+        print("ERROR: Wrong Invocation")
+    help_text = open('.help_text')
+    for l in help_text:
+        print(l)
+    sys.exit(0)
+
+
 ######################################################################
 # Global actions to open and close sprints
 ######################################################################
@@ -173,6 +182,7 @@ def main():
         'close': close_sprint
     }
     reports = {
+        'help': help,
         'backlog': list_backlog,
         'ready': list_ready,
         'blocked': list_blocked,
