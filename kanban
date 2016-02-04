@@ -178,7 +178,7 @@ def main():
         'blocked': list_blocked,
         'completed': list_done,
         'wip': list_wip,
-        'today': list_today,
+        'listtoday': list_today,
         'burndown': burndown,
         'view': list_all
     }
