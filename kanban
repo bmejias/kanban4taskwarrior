@@ -202,7 +202,8 @@ def main():
         'block': block,
         'unblock': unblock
     }
-    command = None if len(sys.argv) < 2 else str(sys.argv[1])
+    DEFAULT = 'view'
+    command = DEFAULT if len(sys.argv) < 2 else str(sys.argv[1])
     if command in reports.keys():
         reports[command]()
     elif command in actions.keys():
