@@ -1,28 +1,28 @@
 Usage:
 
-    kanban
+    kanban <task_id> <action>   Move tasks on the kanban board
+    kanban <report>             List task in a given column
+    kanban <sprint_action>      Open and close sprint
 
-Actions on tasks
+    kanban help                 This help message
 
-    kanban <task id> add
-    kanban <task id> today      Move task to today's TODO list
-    kanban <task id> start      Move task to WIP. Mark it as active 
-    kanban <task id> done       Move task to done. Mark it as completed
-    kanban <task id> block      Tag the task as BLOCKED
-    kanban <task id> unblock    Remove the tag BLOCKED from the task
+Actions on tasks (Currently order task_id command is reverse. To be changed)
 
-
-    
- 
+    kanban <task_id> add        Add task to current sprint
+    kanban <task_id> today      Move task to today's TODO list
+    kanban <task_id> start      Move task to WIP. Mark it as active 
+    kanban <task_id> done       Move task to done. Mark it as completed
+    kanban <task_id> block      Tag the task as BLOCKED
+    kanban <task_id> unblock    Remove the tag BLOCKED from the task
 
 Reporting
 
-    kanban
+    kanban backlog      List tasks that are not added to this sprint
+    kanban ready        List tasks that are ready to be scheduled today
 
 Sprint actions
 
-    kanban
+    kanban open         Create new sprint only if there isn't one open
+    kanban close        Close current sprint only if all tasks are done
+    kanban close force  Force close moving all tasks back to backlog (NYI)
 
-And finally
-
-    kanban help         This help message
