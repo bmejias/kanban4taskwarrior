@@ -1,1 +1,28 @@
-This is helpless
+Usage:
+
+    kanban
+
+Actions on tasks
+
+    kanban <task id> add
+    kanban <task id> today      Move task to today's TODO list
+    kanban <task id> start      Move task to WIP. Mark it as active 
+    kanban <task id> done       Move task to done. Mark it as completed
+    kanban <task id> block      Tag the task as BLOCKED
+    kanban <task id> unblock    Remove the tag BLOCKED from the task
+
+
+    
+ 
+
+Reporting
+
+    kanban
+
+Sprint actions
+
+    kanban
+
+And finally
+
+    kanban help         This help message
