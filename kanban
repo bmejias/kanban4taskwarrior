@@ -96,11 +96,6 @@ def add_to_ready(taskid):
     os.system("%s %s mod +%s +ready" % (TASK, taskid, key))
 
 
-def add_to_today(taskid):
-    # Extra column for TOS kanban
-    os.system("%s %s mod -ready +today" % (TASK, taskid))
-
-
 def add_to_wip(taskid):
     os.system("%s %s start -ready" % (TASK, taskid))
 
@@ -143,10 +138,6 @@ def list_ready():
     list_with_tag('ready')
 
 
-def list_today():
-    list_with_tag('today')
-
-
 def list_wip():
     key = get_key(True)
     os.system("%s +%s active" % (TASK, key))
@@ -166,8 +157,6 @@ def list_all():
     key = get_key(True)
     print_header('Ready')
     os.system("%s +%s +ready" % (TASK, key))
-    print_header('Today')
-    os.system("%s +%s +today" % (TASK, key))
     print_header('WIP')
     os.system("%s +%s active" % (TASK, key))
     print_header('Done')
@@ -190,13 +179,11 @@ def main():
         'blocked': list_blocked,
         'completed': list_done,
         'wip': list_wip,
-        'listtoday': list_today,
         'burndown': burndown,
         'view': list_all
     }
     actions = {
         'add': add_to_ready,
-        'today': add_to_today,
         'start': add_to_wip,
         'done': add_to_done,
         'block': block,
