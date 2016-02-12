@@ -190,13 +190,18 @@ def main():
         'unblock': unblock
     }
     DEFAULT = 'view'
-    command = DEFAULT if len(sys.argv) < 2 else str(sys.argv[1])
-    if command in reports.keys():
-        reports[command]()
-    elif command in actions.keys():
-        actions[command](sys.argv[2])
-    elif command in sprint_actions.keys():
-        sprint_actions[command](sys.argv)
+    param = DEFAULT if len(sys.argv) < 2 else sys.argv[1]
+    if param.isdigit():
+        task_id = int(param)
+        action = None if len(sys.argv) < 3 else sys.argv[2]
+        if action in actions.keys():
+            actions[action](task_id)
+    else:
+        command = param
+        if command in reports.keys():
+            reports[command]()
+        elif command in sprint_actions.keys():
+            sprint_actions[command](sys.argv)
 
 
 if __name__ == '__main__':
