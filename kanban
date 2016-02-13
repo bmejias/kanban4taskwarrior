@@ -86,6 +86,15 @@ def close_sprint(force):
         sys.exit(101)
 
 
+def key_sprint(_args_):
+    key = get_key(False)
+    if key is None:
+        print("WARN:There is no sprint open yet")
+        sys.exit(102)
+    else:
+        print(key)
+
+
 ######################################################################
 # Actions perfomed on task ids
 ######################################################################
@@ -170,7 +179,8 @@ def list_all():
 def main():
     sprint_actions = {
         'open': open_sprint,
-        'close': close_sprint
+        'close': close_sprint,
+        'key': key_sprint
     }
     reports = {
         'help': help,
